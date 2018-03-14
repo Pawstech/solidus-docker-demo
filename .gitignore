@@ -23,3 +23,5 @@
 
 # Local Assets
 /public/spree
+
+.docker-sync/

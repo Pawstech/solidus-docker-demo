@@ -4,7 +4,8 @@ services:
     build: .
     command: bundle exec rails s -b 0.0.0.0
     volumes:
-      - .:/home/solidus
+      - solidus-sync:/home/solidus:nocopy
+      - bundle:/bundle
     environment:
       - DB_HOST=db
       - DB_NAME=solidus-demo_development
@@ -17,7 +18,6 @@ services:
       - "3000:3000"
     depends_on:
       - db
-
   db:
     image: postgres:9.6-alpine
     environment:
@@ -26,6 +26,10 @@ services:
       - POSTGRES_USER=solidus-demo
     volumes:
       - db_data:/var/lib/postgresql/data
-
+    ports:
+      - 5432:5432
 volumes:
   db_data:
+  bundle:
+  solidus-sync:
+    external: true
